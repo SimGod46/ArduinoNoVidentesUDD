@@ -1,6 +1,6 @@
+from threading import Thread
 import pyttsx3, hid, time
 from queue import Queue
-from threading import Thread
 q = Queue()
 def say_loop():
     engine = pyttsx3.init()
@@ -16,8 +16,8 @@ def key_recorder(key):
         q.put('Pin 2')
     elif key[1] == 0:
         q.put('Pin 3')
-    elif key[1] == 255:
-        q.put('Pin 4')    
+    elif key[5] == 79:
+        q.put('Boton x')    
 
 def hid_loop():
     t = Thread(target=say_loop)
@@ -25,7 +25,7 @@ def hid_loop():
     t.start()
     for device in hid.enumerate():
         print(f"0x{device['vendor_id']:04x}:0x{device['product_id']:04x} {device['product_string']}")
-    if 'Leonardo' in device['product_string']:
+    if 'Generic   USB  Joystick' in device['product_string']:
         dir1,dir2 = device['vendor_id'], device['product_id']
         gamepad = hid.device()
         gamepad.open(dir1,dir2)
@@ -33,10 +33,11 @@ def hid_loop():
         while True:
             report = gamepad.read(64)
             if report:
-                print(report)
+                #print(report)
                 key_recorder(report)
                 time.sleep(1)
     else:
         print('"Joystick" no encontrado')
-hid_loop()
+constant_reader = Thread(target=hid_loop)
+constant_reader.start()
 q.join() # ends the loop when queue is empty

@@ -3,7 +3,7 @@ from keras.preprocessing import image
 import keras
 class modules_recognizer:
     def __init__(self):
-        self.classes_names = ['Pir', 'DHT 11', 'CO']
+        self.classes_names = ['PIR', 'DHT11', 'CO']
         self.model = keras.models.load_model('AIvidentes.h5')
     def read(self,path):
         img = image.load_img(path, target_size=(224, 224))
