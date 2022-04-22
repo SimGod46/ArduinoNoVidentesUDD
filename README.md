@@ -26,3 +26,5 @@ Se utiliza el modulo dbms.py, utilización de base de datos para almacenar nombr
 
 ## Captura de imagenes:
 Se utiliza el modulo main.py, genera el ciclo responsable de la captura y almacenamiento de imagenes para luego ser procesadas, además es donde se almacena la variable q de forma que se pueda leer por los demas modulos.
+
+Hola
