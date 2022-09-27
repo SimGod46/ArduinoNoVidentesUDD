@@ -16,6 +16,6 @@ class modules_recognizer:
             listed_clas.append(i)
         prediccion = max(listed_clas)
         prediccion = listed_clas.index(prediccion)
-        #print(listed_clas)
-        #print(self.classes_names[prediccion])
+        print(listed_clas) #Lista de probabilidades
+        #print(self.classes_names[prediccion]) 
         return self.classes_names[prediccion]

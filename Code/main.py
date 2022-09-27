@@ -11,6 +11,7 @@ while True:
     if tomar_foto == '':
         ret, frame = cap.read()
         cv2.imwrite('module.jpg',frame)
+        cv2.imshow('image',frame)
         # reconocimiento
         module_detected= reconocedor_img.read('module.jpg')
         print('Detectado: ',module_detected)
