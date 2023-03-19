@@ -1,7 +1,7 @@
 from recognize import modules_recognizer
 from dbms import data_manager
 import voice,cv2
-cap = cv2.VideoCapture(0) #Cambiar a 1
+cap = cv2.VideoCapture(1) #Cambiar a 1 para utilizar arduino
 height = 224#int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 width = 224#int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 reconocedor_img = modules_recognizer()

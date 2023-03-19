@@ -13,8 +13,6 @@ print("Tensorflow version " + tf.__version__)
 - Define the batch size
 - Define the class (category) names
 """
-
-BATCH_SIZE = 32 
 classes = ['Pir', 'DHT 11', 'CO']
 
 """Define some functions that will help you to create some visualizations. (These will be used later)"""

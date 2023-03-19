@@ -1,0 +1,64 @@
+<MainMenu>:
+    canvas.before:
+        Color: 
+            rgba: 1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            size_hint_y: None
+            height: dp(52)
+            padding: dp(8)
+            spacing: dp(8)
+            canvas:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            MDLabel:
+                text: 'Blinduino'
+                font_size: 40
+                halign: 'center'
+                color:"white"
+                accessibility_label: "Título de la aplicación"
+
+        MDLabel:
+            text: 'Aqui va el modulo detectado'
+            font_size: 20
+            halign: 'center'
+            accessibility_label: "Módulo detectado"
+
+        MDLabel:
+            text: 'Aqui va el pin detectado'
+            font_size: 20
+            halign: 'center'
+            accessibility_label: "Pin detectado"
+
+        AnchorLayout:
+            size_hint_y: None
+            height: dp(60)
+
+            MDCard:
+                size_hint_x: None
+                width: dp(200)
+                size_hint_y: None
+                height: dp(40)
+
+                elevation: 0
+                md_bg_color: 0,0,0, 1
+                radius: [10,10,10,10]
+                pos_hint: {"center_x": 0.5}
+                on_press:
+                    self.md_bg_color = 174/255, 174/255, 174/255, 1
+                on_release:
+                    self.md_bg_color = 0/255, 0/255, 0/255, 1
+                MDLabel:
+                    text: 'detectar'
+                    color: 1,1,1,1
+                    halign: 'center'
+                    valign: 'center'
+                    accessibility_label: "Botón de detección"
