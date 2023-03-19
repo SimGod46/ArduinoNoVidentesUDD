@@ -4,7 +4,7 @@ import keras
 class modules_recognizer:
     def __init__(self):
         self.classes_names = ['PIR', 'DHT11', 'CO']
-        self.model = keras.models.load_model(r"C:\Users\simon\OneDrive\Escritorio\ArduinoNoVidentesUDD-main\ArduinoNoVidentesUDD-main\Code\Backend\AIvidentes.h5")
+        self.model = keras.models.load_model(r"AIvidentes.h5")
     def read(self,path):
         img = image.load_img(path, target_size=(224, 224))
         x = image.img_to_array(img)
