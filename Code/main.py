@@ -1,31 +1,19 @@
-from pygrabber.dshow_graph import FilterGraph
 from recognize import modules_recognizer,pin_recognizer
 from dbms import data_manager
-import cv2,wx,time,threading
-
-def get_camera(name="HD camera ") :
-    devices = FilterGraph().get_input_devices()
-    for device_index, device_name in enumerate(devices):
-        if device_name == name:
-            return device_index
-    return 0
+from cameras import camera
+import wx,time,threading
 
 class Controller:
     def __init__(self):
         try:             
-            self.cap = cv2.VideoCapture(get_camera())     
+            self.camera = camera("GENERAL WEBCAM")            
             self.reconocedor_img = modules_recognizer()
             self.base_datos = data_manager()
         except Exception as e:
             print(e)
 
     def take_photo(self):
-            _, frame = self.cap.read()
-            frame = cv2.resize(frame, (224, 224))
-            cv2.imshow('image',frame)
-            
-            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
+            rgb_frame = self.camera.capture()
             module_detected= self.reconocedor_img.read(rgb_frame)
             print('Detectado: ',module_detected)
 #            module_name = self.base_datos.query_module(module_detected) #
@@ -58,10 +46,10 @@ class MainWindow(wx.Frame):
         sizer.Add(self.col_izquierda_up, pos=(0, 0), span=(1, 1), flag=wx.EXPAND|wx.ALL, border=0)
 
         # Columna izquierda inferior
-        self.col_izquierda_down = wx.Panel(panel,name="Pin 1")
+        self.col_izquierda_down = wx.Panel(panel,name="Pin")
         self.col_izquierda_down.SetBackgroundColour('#ffffff')
 
-        self.pin_label = wx.StaticText(self.col_izquierda_down, label='Pin 1', style=wx.ALIGN_CENTER)
+        self.pin_label = wx.StaticText(self.col_izquierda_down, label='Pin', style=wx.ALIGN_CENTER)
         self.pin_label.SetForegroundColour('#432D5C')
         self.pin_label.SetFont(wx.Font(50, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
 
@@ -109,7 +97,6 @@ class MainWindow(wx.Frame):
         self.col_derecha_down.SetSizer(col_derecha_down_sizer)
         sizer.Add(self.col_derecha_down, pos=(1, 1), flag=wx.EXPAND|wx.ALL, border=0)
 
-
         # Configurar la expansión del sizer
         sizer.AddGrowableCol(0,4)
         sizer.AddGrowableCol(1,6)
@@ -141,15 +128,17 @@ class MainWindow(wx.Frame):
 
     def update_pin_label(self):
         if self.pinsController.gamepad:
+            available_pins=self.pinsController.nombre_pin.keys()
+            last_pin = ""
             while True:
-                time.sleep(1)
+                time.sleep(0.1)
                 report = self.pinsController.gamepad.read(64)
-                if report and report[1] in self.pinsControllerself.nombre_pin.keys():
-                    wx.CallAfter(self.pin_label.SetLabel, self.pinsControllerself.nombre_pin[report[1]])
-                    wx.CallAfter(self.col_izquierda_down.SetLabel, self.pinsControllerself.nombre_pin[report[1]])
+                if report and report[1] in available_pins and self.pinsController.nombre_pin[report[1]] != last_pin:
+                    last_pin = self.pin_label.GetLabel()
+                    wx.CallAfter(self.pin_label.SetLabel, self.pinsController.nombre_pin[report[1]])
+                    wx.CallAfter(self.col_izquierda_down.SetLabel, self.pinsController.nombre_pin[report[1]])
 
 if __name__ == '__main__':
     app = wx.App()
     frame = MainWindow()
     app.MainLoop()
-    
