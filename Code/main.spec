@@ -1,14 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-
 block_cipher = None
-
 
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[("AIvidentes.h5",".")],
+    datas=[("AIvidentes.h5","."),("blinduino.ui",".")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

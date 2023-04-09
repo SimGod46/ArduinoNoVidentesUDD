@@ -10,9 +10,7 @@ class data_manager:
         try:
             self.cursor.execute(f"SELECT * from ArduinoNoVidente where Modulo='{''.join(key.split())}'")
             result = self.cursor.fetchone()
-#            statement= f'Numero de pines = {result[1]}, {result[2]}. uso = {result[3]}'
-            statement= result[3]
-            return statement
+            return result
         except Exception as e:
             print(e)
             return 'ERROR'

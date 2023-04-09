@@ -1,14 +1,24 @@
+from PyQt5 import QtWidgets
+from GUI import MainWindow
 from recognize import modules_recognizer,pin_recognizer
 from dbms import data_manager
 from cameras import camera
-import wx,time,threading
+import time,threading
+def text_format(text,text_size):
+    return f'<html><head/><body><p align="center"><span style=" font-size:{text_size}pt;">{text}</span></p></body></html>'
 
 class Controller:
     def __init__(self):
         try:             
+            self.gui = MainWindow()
+            self.gui.detectButton.clicked.connect(self.take_photo)
             self.camera = camera("GENERAL WEBCAM")            
-            self.reconocedor_img = modules_recognizer()
             self.base_datos = data_manager()
+            self.pinsController = pin_recognizer()
+            self.reconocedor_img = modules_recognizer()
+
+            self.thread = threading.Thread(target=self.update_pin_label)
+            self.thread.start()
         except Exception as e:
             print(e)
 
@@ -16,115 +26,11 @@ class Controller:
             rgb_frame = self.camera.capture()
             module_detected= self.reconocedor_img.read(rgb_frame)
             print('Detectado: ',module_detected)
-#            module_name = self.base_datos.query_module(module_detected) #
-            module_info = self.base_datos.query_module(module_detected) #
-            return (module_detected,module_info)
-
-class MainWindow(wx.Frame):
-    def __init__(self):
-        super().__init__(None, title='Blinduino',size=wx.GetDisplaySize())
-        self.controller = Controller()
-        self.pinsController = pin_recognizer()
-
-        panel = wx.Panel(self)
-        sizer = wx.GridBagSizer(hgap=0, vgap=0)
-
-        # Columna izquierda superior
-        self.col_izquierda_up = wx.Panel(panel, name="Modulo")
-        self.col_izquierda_up.SetBackgroundColour('#432D5C')
-
-        self.modulo_label = wx.StaticText(self.col_izquierda_up, label='Modulo', style=wx.ALIGN_CENTER)
-        self.modulo_label.SetForegroundColour('#ffffff')
-        self.modulo_label.SetFont(wx.Font(40, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
-
-        col_izquierda_up_sizer = wx.BoxSizer(wx.VERTICAL)
-        col_izquierda_up_sizer.AddStretchSpacer()
-        col_izquierda_up_sizer.Add(self.modulo_label, flag=wx.ALIGN_CENTER)
-        col_izquierda_up_sizer.AddStretchSpacer()
-
-        self.col_izquierda_up.SetSizer(col_izquierda_up_sizer)
-        sizer.Add(self.col_izquierda_up, pos=(0, 0), span=(1, 1), flag=wx.EXPAND|wx.ALL, border=0)
-
-        # Columna izquierda inferior
-        self.col_izquierda_down = wx.Panel(panel,name="Pin")
-        self.col_izquierda_down.SetBackgroundColour('#ffffff')
-
-        self.pin_label = wx.StaticText(self.col_izquierda_down, label='Pin', style=wx.ALIGN_CENTER)
-        self.pin_label.SetForegroundColour('#432D5C')
-        self.pin_label.SetFont(wx.Font(50, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
-
-        col_izquierda_down_sizer = wx.BoxSizer(wx.VERTICAL)
-        col_izquierda_down_sizer.AddStretchSpacer()
-        col_izquierda_down_sizer.Add(self.pin_label, flag=wx.ALIGN_CENTER)
-        col_izquierda_down_sizer.AddStretchSpacer()
-
-        self.col_izquierda_down.SetSizer(col_izquierda_down_sizer)
-        sizer.Add(self.col_izquierda_down, pos=(1, 0), span=(1, 1), flag=wx.EXPAND|wx.ALL, border=0)
-
-        # Columna derecha superior
-        self.col_derecha_up = wx.Panel(panel,name="Descripción")
-        self.col_derecha_up.SetBackgroundColour('#614B79')
-
-        self.descripcion_label = wx.StaticText(self.col_derecha_up, label='Descripción', style=wx.ALIGN_CENTER)
-        self.descripcion_label.SetForegroundColour('#ffffff')
-        self.descripcion_label.SetFont(wx.Font(35, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
-
-        col_derecha_up_sizer = wx.BoxSizer(wx.VERTICAL)
-        col_derecha_up_sizer.AddStretchSpacer()
-        col_derecha_up_sizer.Add(self.descripcion_label, flag=wx.ALIGN_CENTER)
-        col_derecha_up_sizer.AddStretchSpacer()
-
-        self.col_derecha_up.SetSizer(col_derecha_up_sizer)
-        sizer.Add(self.col_derecha_up, pos=(0, 1), span=(1, 1), flag=wx.EXPAND|wx.ALL, border=0)
-
-        # Columna derecha inferior
-        self.col_derecha_down = wx.Panel(panel,name="DETECTAR")
-        self.col_derecha_down.SetBackgroundColour('#ffffff')
-
-        self.boton_detect = wx.Button(self.col_derecha_down, label='DETECTAR')
-        self.boton_detect.SetHelpText("Este botón se usa para tomar una foto e identificar el modulo")
-        self.boton_detect.SetForegroundColour('#ffffff')
-        self.boton_detect.SetBackgroundColour('#614B79')
-        self.boton_detect.SetFont(wx.Font(50, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
-        self.boton_detect.Bind(wx.EVT_BUTTON, self.cambiar_texto)
-
-
-        col_derecha_down_sizer = wx.BoxSizer(wx.VERTICAL)
-        col_derecha_down_sizer.AddStretchSpacer()
-        col_derecha_down_sizer.Add(self.boton_detect, flag=wx.ALIGN_CENTER)
-        col_derecha_down_sizer.AddStretchSpacer()
-
-        self.col_derecha_down.SetSizer(col_derecha_down_sizer)
-        sizer.Add(self.col_derecha_down, pos=(1, 1), flag=wx.EXPAND|wx.ALL, border=0)
-
-        # Configurar la expansión del sizer
-        sizer.AddGrowableCol(0,4)
-        sizer.AddGrowableCol(1,6)
-        sizer.AddGrowableRow(0)
-        sizer.AddGrowableRow(1)
-
-        panel.SetSizer(sizer)
-#        sizer.Fit(self)
-        self.SetMinSize((800, 600))
-        self.Show(True)
-
-        self.thread = threading.Thread(target=self.update_pin_label)
-        self.thread.start()
-
-    def cambiar_texto(self,event):
-        nombre_modulo,info_modulo = self.controller.take_photo()
-        
-        width_modulo = self.modulo_label.GetParent().GetSize()[0]
-        self.col_izquierda_up.SetLabel(nombre_modulo)
-        self.modulo_label.SetLabel(nombre_modulo)
-        self.modulo_label.Wrap(width_modulo)
-        self.modulo_label.GetParent().Layout()
-
-        width_description = self.descripcion_label.GetParent().GetSize()[0]
-        self.col_derecha_up.SetLabel(info_modulo)
-        self.descripcion_label.SetLabel(info_modulo)
-        self.descripcion_label.Wrap(width_description)
-        self.descripcion_label.GetParent().Layout()
+            query_rcv = self.base_datos.query_module(module_detected) #
+            self.gui.nameModule.setText(text_format(query_rcv[1],"28"))
+            self.gui.idModule.setText(text_format(query_rcv[0],"28"))
+            self.gui.descriptionModule.setText(text_format(query_rcv[4],"24"))
+            self.gui.pinModule.setText(text_format(query_rcv[3],"26"))
 
     def update_pin_label(self):
         if self.pinsController.gamepad:
@@ -134,11 +40,12 @@ class MainWindow(wx.Frame):
                 time.sleep(0.1)
                 report = self.pinsController.gamepad.read(64)
                 if report and report[1] in available_pins and self.pinsController.nombre_pin[report[1]] != last_pin:
-                    last_pin = self.pin_label.GetLabel()
-                    wx.CallAfter(self.pin_label.SetLabel, self.pinsController.nombre_pin[report[1]])
-                    wx.CallAfter(self.col_izquierda_down.SetLabel, self.pinsController.nombre_pin[report[1]])
+                    last_pin = self.gui.pin_label.text()
+                    self.gui.pinLabel.setText(self.pinsController.nombre_pin[report[1]])
 
 if __name__ == '__main__':
-    app = wx.App()
-    frame = MainWindow()
-    app.MainLoop()
+    app = QtWidgets.QApplication([])
+    controller = Controller()
+    window = controller.gui
+    window.show()
+    app.exec()
