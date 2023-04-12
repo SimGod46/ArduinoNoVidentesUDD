@@ -3,16 +3,19 @@ from GUI import MainWindow
 from recognize import modules_recognizer,pin_recognizer
 from dbms import data_manager
 from cameras import camera
-import time,threading
-def text_format(text,text_size):
-    return f'<html><head/><body><p align="center"><span style=" font-size:{text_size}pt;">{text}</span></p></body></html>'
+import time,threading,sys
 
 class Controller:
     def __init__(self):
-        try:             
+        try:           
+            args = sys.argv[1:] # Ignorar el primer elemento, que es el nombre del archivo .py
+            if "-d" in args:
+                self.debug_mode = True
+            else:
+                self.debug_mode = False            
+            self.camera = camera()             
             self.gui = MainWindow()
             self.gui.detectButton.clicked.connect(self.take_photo)
-            self.camera = camera("GENERAL WEBCAM")            
             self.base_datos = data_manager()
             self.pinsController = pin_recognizer()
             self.reconocedor_img = modules_recognizer()
@@ -23,14 +26,12 @@ class Controller:
             print(e)
 
     def take_photo(self):
-            rgb_frame = self.camera.capture()
-            module_detected= self.reconocedor_img.read(rgb_frame)
-            print('Detectado: ',module_detected)
-            query_rcv = self.base_datos.query_module(module_detected) #
-            self.gui.nameModule.setText(text_format(query_rcv[1],"28"))
-            self.gui.idModule.setText(text_format(query_rcv[0],"28"))
-            self.gui.descriptionModule.setText(text_format(query_rcv[4],"24"))
-            self.gui.pinModule.setText(text_format(query_rcv[3],"26"))
+            rgb_frame = self.camera.capture(debug=self.debug_mode)
+            module= self.reconocedor_img.read(rgb_frame)
+            print('Detectado: ',module)
+            query_rcv = self.base_datos.query_module(module)
+            self.gui.module_detected(query_rcv)
+
 
     def update_pin_label(self):
         if self.pinsController.gamepad:
@@ -40,12 +41,13 @@ class Controller:
                 time.sleep(0.1)
                 report = self.pinsController.gamepad.read(64)
                 if report and report[1] in available_pins and self.pinsController.nombre_pin[report[1]] != last_pin:
-                    last_pin = self.gui.pin_label.text()
-                    self.gui.pinLabel.setText(self.pinsController.nombre_pin[report[1]])
+                    last_pin = self.gui.pinLabel.text()
+                    self.gui.changePin(self.pinsController.nombre_pin[report[1]])
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     controller = Controller()
     window = controller.gui
-    window.show()
+    window.setWindowTitle('Blinduino')
+    window.showMaximized()
     app.exec()

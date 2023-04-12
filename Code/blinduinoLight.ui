@@ -19,13 +19,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="windowIcon">
-   <iconset>
-    <normaloff>logo.png</normaloff>logo.png</iconset>
-  </property>
   <property name="styleSheet">
    <string notr="true">QWidget#centralwidget{
-background-color:rgb(228, 212, 246);
+background-color:#B8C1EC;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -51,16 +47,8 @@ background-color:rgb(228, 212, 246);
         </property>
         <item>
          <widget class="QLabel" name="descriptionModule">
-          <property name="focusPolicy">
-           <enum>Qt::TabFocus</enum>
-          </property>
-          <property name="accessibleName">
-           <string/>
-          </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #614B79;
-padding:5px;
-font: 26pt;
+           <string notr="true">background-color: #6246EA;
 color:white;
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -69,31 +57,17 @@ margin-right:20px;
 margin-top:20px;</string>
           </property>
           <property name="text">
-           <string>DESCRIPCIÓN</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;DESCRIPCION&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="pinModule">
-          <property name="focusPolicy">
-           <enum>Qt::TabFocus</enum>
-          </property>
-          <property name="accessibleName">
-           <string/>
-          </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #432D5C;
-font:24pt;
-color:white;
+           <string notr="true">background-color: #E8E4E6;
 border-bottom-left-radius: 10px;
 border-bottom-right-radius: 10px;
 margin-left:20px;
@@ -101,16 +75,10 @@ margin-right:20px;
 margin-bottom:20px;</string>
           </property>
           <property name="text">
-           <string>PINES</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;PINES&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
           </property>
          </widget>
         </item>
@@ -123,18 +91,8 @@ margin-bottom:20px;</string>
         </property>
         <item>
          <widget class="QLabel" name="nameModule">
-          <property name="focusPolicy">
-           <enum>Qt::TabFocus</enum>
-          </property>
-          <property name="accessibleName">
-           <string/>
-          </property>
-          <property name="accessibleDescription">
-           <string/>
-          </property>
           <property name="styleSheet">
-           <string notr="true">font: 28pt;
-background-color: #432D5C;
+           <string notr="true">background-color: #6246EA;
 color:white;
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -143,31 +101,17 @@ margin-right:20px;
 margin-top:20px;</string>
           </property>
           <property name="text">
-           <string>NOMBRE</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;NOMBRE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="idModule">
-          <property name="focusPolicy">
-           <enum>Qt::TabFocus</enum>
-          </property>
-          <property name="accessibleName">
-           <string/>
-          </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #614B79;
-font:28pt;
-color:white;
+           <string notr="true">background-color: #E8E4E6;
 border-bottom-left-radius: 10px;
 border-bottom-right-radius: 10px;
 margin-left:20px;
@@ -175,16 +119,10 @@ margin-right:20px;
 margin-bottom:20px;</string>
           </property>
           <property name="text">
-           <string>ID</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;ID&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
           </property>
          </widget>
         </item>
@@ -192,15 +130,8 @@ margin-bottom:20px;</string>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="pinLabel">
-        <property name="focusPolicy">
-         <enum>Qt::TabFocus</enum>
-        </property>
-        <property name="accessibleName">
-         <string/>
-        </property>
         <property name="styleSheet">
-         <string notr="true">background-color: white;
-font:28pt;
+         <string notr="true">background-color: #6246EA;
 border-radius: 10px;
 margin-left:20px;
 margin-right:20px;
@@ -208,16 +139,10 @@ margin-top: 15%;
 margin-bottom: 15%;</string>
         </property>
         <property name="text">
-         <string>PIN</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; color:#ffffff;&quot;&gt;PIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
       </item>
@@ -229,12 +154,9 @@ margin-bottom: 15%;</string>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="accessibleName">
-         <string>Detectar módulos </string>
-        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
-background-color: #614B79;
+background-color: #E45858;
 color:white;
 font: 28pt;
 border-radius: 10px;
@@ -253,9 +175,6 @@ QPushButton:pressed {
         <property name="text">
          <string>DETECTAR</string>
         </property>
-        <property name="shortcut">
-         <string>Space</string>
-        </property>
        </widget>
       </item>
      </layout>
@@ -263,14 +182,6 @@ QPushButton:pressed {
    </layout>
   </widget>
  </widget>
- <tabstops>
-  <tabstop>nameModule</tabstop>
-  <tabstop>idModule</tabstop>
-  <tabstop>descriptionModule</tabstop>
-  <tabstop>pinModule</tabstop>
-  <tabstop>pinLabel</tabstop>
-  <tabstop>detectButton</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>
