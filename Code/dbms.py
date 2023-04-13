@@ -14,3 +14,14 @@ class data_manager:
         except Exception as e:
             print(e)
             return 'ERROR'
+    def query_all(self):
+        try:
+            self.cursor.execute(f"SELECT * from ArduinoNoVidente")
+            result = self.cursor.fetchall()
+            modulesDict = {}
+            for module in result:
+                modulesDict[module[0]]=module
+            return modulesDict
+        except Exception as e:
+            print(e)
+            return 'ERROR'

@@ -3,10 +3,10 @@
 block_cipher = None
 
 a = Analysis(
-    ['main.pyw'],
+    ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[("AIvidentes.h5","."),("blinduino.ui",".")],
+    datas=[("AIvidentes.tflite","."),("blinduino.ui",".")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

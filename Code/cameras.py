@@ -27,7 +27,6 @@ class camera:
         self.image_done.wait(1000)
         self.image_done.clear()
         frame = cv2.resize(self.image_grabbed, (224, 224))
-#        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         if debug:
             cv2.imshow('image',frame)
         return frame

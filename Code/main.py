@@ -7,30 +7,26 @@ import time,threading,sys
 
 class Controller:
     def __init__(self):
-        try:           
-            args = sys.argv[1:] # Ignorar el primer elemento, que es el nombre del archivo .py
-            if "-d" in args:
-                self.debug_mode = True
-            else:
-                self.debug_mode = False            
-            self.camera = camera()             
-            self.gui = MainWindow()
-            self.gui.detectButton.clicked.connect(self.take_photo)
-            self.base_datos = data_manager()
-            self.pinsController = pin_recognizer()
-            self.reconocedor_img = modules_recognizer()
+        args = sys.argv[1:] # Ignorar el primer elemento, que es el nombre del archivo .py
+        if "-d" in args:
+            self.debug_mode = True
+        else:
+            self.debug_mode = False            
+        self.camera = camera()             
+        self.gui = MainWindow()
+        self.gui.detectButton.clicked.connect(self.take_photo)
+        self.base_datos = data_manager().query_all()
+        
+        self.pinsController = pin_recognizer()
+        self.reconocedor_img = modules_recognizer()
 
-            self.thread = threading.Thread(target=self.update_pin_label)
-            self.thread.start()
-        except Exception as e:
-            print(e)
+        self.thread = threading.Thread(target=self.update_pin_label)
+        self.thread.start()
 
     def take_photo(self):
             rgb_frame = self.camera.capture(debug=self.debug_mode)
             module= self.reconocedor_img.read(rgb_frame)
-            print('Detectado: ',module)
-            query_rcv = self.base_datos.query_module(module)
-            self.gui.module_detected(query_rcv)
+            self.gui.module_detected(self.base_datos[module])
 
 
     def update_pin_label(self):

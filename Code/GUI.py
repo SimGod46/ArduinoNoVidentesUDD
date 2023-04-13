@@ -5,7 +5,6 @@ from PyQt5.QtCore import Qt
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-#        uic.loadUi('blinduino.ui', self)
         uic.loadUi('blinduino.ui', self)
         self.resizeEvent = self.onResize
 

@@ -1,20 +1,25 @@
 import hid
 import numpy as np
-from keras.models import load_model
-from keras.preprocessing.image import img_to_array
+from tensorflow.lite.python.interpreter import Interpreter
+
 class modules_recognizer:
     def __init__(self):
         self.classes_names = ['HC-SR04', 'DHT-11', 'ldr', 'KY-023', 'KY-012']
-        self.model = load_model("AIvidentes.h5")
+        self.model = Interpreter("AIvidentes.tflite") #load_model("AIvidentes.h5")
+        self.model.allocate_tensors()
+
+        # Obtener los detalles de entrada y salida del modelo
+        self.input_details = self.model.get_input_details()[0]["index"]
+        self.output_details = self.model.get_output_details()[0]["index"]
     def read(self,frame):
-#        img = image.load_img(path, target_size=(224, 224))
-        x = img_to_array(frame)
-        x = np.expand_dims(x, axis=0)
+        x = np.expand_dims(frame.astype(np.float32), axis=0)
         image_tensor = np.vstack([x])
-        classes = self.model.predict(image_tensor)
-        listed_clas = []
-        for i in classes[0]:
-            listed_clas.append(i)
+
+        self.model.set_tensor(self.input_details, image_tensor)
+        self.model.invoke() # Ejecutar la inferencia
+        classes = self.model.get_tensor(self.output_details)[0] # Obtener los resultados de la inferencia
+
+        listed_clas = [prediction for prediction in classes]
         prediccion = max(listed_clas)
         prediccion = listed_clas.index(prediccion)
 
