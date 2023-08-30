@@ -1,15 +1,13 @@
 from pygrabber.dshow_graph import FilterGraph
-import threading,cv2
+import threading, cv2
 
-class camera:
-    def __init__(self,camera_name="HD camera "):
+
+class CameraBlinduino:
+    def __init__(self, camera_name="HD camera "):
 
         self.graph = FilterGraph()
         device_list = self.graph.get_input_devices()
-        try:
-            camera_indx = next(device[0] for device in enumerate(device_list) if device[1] == camera_name)
-        except  Exception as e:
-            camera_indx = 0
+        camera_indx = next(device[0] for device in enumerate(device_list) if device[1] == camera_name)
         self.graph.add_video_input_device(camera_indx)
         self.graph.add_sample_grabber(self.img_cb)
         self.graph.add_null_render()
@@ -18,7 +16,8 @@ class camera:
 
         self.image_done = threading.Event()
         self.image_grabbed = None
-    def img_cb(self,image):
+
+    def img_cb(self, image):
         self.image_grabbed = image
         self.image_done.set()
 
@@ -28,5 +27,5 @@ class camera:
         self.image_done.clear()
         frame = cv2.resize(self.image_grabbed, (224, 224))
         if debug:
-            cv2.imshow('image',frame)
+            cv2.imshow('image', frame)
         return frame

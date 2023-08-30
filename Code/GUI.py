@@ -2,6 +2,7 @@
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtCore import Qt
 
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -20,41 +21,50 @@ class MainWindow(QtWidgets.QMainWindow):
             self.pinModule.setFocus(Qt.OtherFocusReason)
         elif event.key() == Qt.Key_5:
             self.pinLabel.setFocus(Qt.OtherFocusReason)
-        elif event.key() == Qt.Key_Space:   
+        elif event.key() == Qt.Key_6:
+            self.statusLog.setFocus(Qt.OtherFocusReason)
+        elif event.key() == Qt.Key_7:
+            self.refreshButton.setFocus(Qt.OtherFocusReason)
+        elif event.key() == Qt.Key_Space:
             self.detectButton.setFocus(Qt.OtherFocusReason)
 
     def get_resolution(self):
         size = self.size()
-        ancho,alto = size.width(),size.height()
+        ancho, alto = size.width(), size.height()
         self.resolucion = int((ancho**2 + alto**2)**(1/2))
 
-    def font_adapter(self,c,pendiente=25):
+    def font_adapter(self, c, pendiente=25):
         return str(int(c+pendiente*((self.resolucion-840)/1320)))     
 
-    def resizeFont(self,widget, defaultSize, pendiente=25):
+    def resize_font(self, widget, default_size, pendiente=25):
         current_style = widget.styleSheet()
-        new_style = ";".join([f"\nfont:{self.font_adapter(defaultSize,pendiente)}pt" if "font" in estilo else estilo for estilo in current_style.split(";")])         
+        new_style = ";".join([f"\nfont:{self.font_adapter(default_size,pendiente)}pt"
+                              if "font" in estilo else estilo
+                              for estilo in current_style.split(";")])
         return new_style
     
-    def module_detected(self,msg):
-            #self.font_adapter(28)
-            self.nameModule.setText(msg[1])
-            self.idModule.setText(msg[0])
-            self.descriptionModule.setText(msg[4])
-            self.pinModule.setText(msg[3])
+    def module_detected(self, msg):
+        self.idModule.setText(msg[0])
+        self.nameModule.setText(msg[1])
+        self.pinModule.setText(msg[3])
+        self.descriptionModule.setText(msg[4])
 
-    def changePin(self,msg):
+    def status_log(self, msg):
+        self.statusLog.setText(msg)
+
+    def change_pin(self, msg):
         self.pinLabel.setText(msg)         
 
     def onResize(self, event):
         self.get_resolution()
-        self.pinLabel.setStyleSheet(self.resizeFont(self.pinLabel,32))
-        self.nameModule.setStyleSheet(self.resizeFont(self.nameModule,28))
-        self.idModule.setStyleSheet(self.resizeFont(self.idModule,28))
-        self.descriptionModule.setStyleSheet(self.resizeFont(self.descriptionModule,18,pendiente=10))
-        self.pinModule.setStyleSheet(self.resizeFont(self.pinModule,20))
-        self.detectButton.setStyleSheet(self.resizeFont(self.detectButton,28))
-
+        self.pinLabel.setStyleSheet(self.resize_font(self.pinLabel, 32))
+        self.nameModule.setStyleSheet(self.resize_font(self.nameModule, 28))
+        self.idModule.setStyleSheet(self.resize_font(self.idModule, 28))
+        self.descriptionModule.setStyleSheet(self.resize_font(self.descriptionModule, 18, pendiente=10))
+        self.pinModule.setStyleSheet(self.resize_font(self.pinModule, 20))
+        self.detectButton.setStyleSheet(self.resize_font(self.detectButton, 28))
+        self.refreshButton.setStyleSheet(self.resize_font(self.refreshButton, 28))
+        self.statusLog.setStyleSheet(self.resize_font(self.statusLog, 7, pendiente=15))
 
 
 if __name__ == '__main__':

@@ -23,9 +23,12 @@
    <iconset>
     <normaloff>logo.png</normaloff>logo.png</iconset>
   </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
   <property name="styleSheet">
    <string notr="true">QWidget#centralwidget{
-background-color:rgb(228, 212, 246);
+background-color:rgb(255, 255, 255);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -39,7 +42,7 @@ background-color:rgb(228, 212, 246);
     <property name="spacing">
      <number>0</number>
     </property>
-    <item row="0" column="1">
+    <item row="1" column="0">
      <layout class="QGridLayout" name="gridLayout" rowstretch="220,110" columnstretch="300,475">
       <property name="spacing">
        <number>0</number>
@@ -58,7 +61,7 @@ background-color:rgb(228, 212, 246);
            <string/>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #614B79;
+           <string notr="true">background-color: #27273F;
 padding:5px;
 font: 26pt;
 color:white;
@@ -91,7 +94,7 @@ margin-top:20px;</string>
            <string/>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #432D5C;
+           <string notr="true">background-color: #55F19E;
 font:24pt;
 color:white;
 border-bottom-left-radius: 10px;
@@ -134,7 +137,7 @@ margin-bottom:20px;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">font: 28pt;
-background-color: #432D5C;
+background-color: #27273F;
 color:white;
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -165,7 +168,7 @@ margin-top:20px;</string>
            <string/>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #614B79;
+           <string notr="true">background-color: #55F19E;
 font:28pt;
 color:white;
 border-bottom-left-radius: 10px;
@@ -199,9 +202,10 @@ margin-bottom:20px;</string>
          <string/>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: white;
+         <string notr="true">background-color: #27273F;
 font:28pt;
 border-radius: 10px;
+color:white;
 margin-left:20px;
 margin-right:20px;
 margin-top: 15%;
@@ -234,7 +238,7 @@ margin-bottom: 15%;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
-background-color: #614B79;
+background-color: #27273F;
 color:white;
 font: 28pt;
 border-radius: 10px;
@@ -260,6 +264,155 @@ QPushButton:pressed {
       </item>
      </layout>
     </item>
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <property name="horizontalSpacing">
+       <number>0</number>
+      </property>
+      <item row="1" column="4">
+       <widget class="QLabel" name="label_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="refreshButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+border-image:url(refreshButton.png);
+background-position:center;
+background-size:cover;
+}
+
+QPushButton:pressed {
+border-image:url(refreshButtonClicked.png);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="shortcut">
+         <string>7</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 1px solid #000;
+font: 20pt;
+color:white;
+
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+
+background: #55F19E;
+margin-left:20px;
+margin-bottom:20px;
+margin-top:20px;</string>
+        </property>
+        <property name="text">
+         <string>ESTADO</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="statusLog">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-bottom:20px;
+margin-top:20px;
+padding-left:10px;
+
+font: 7pt;
+
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+border-top: 1px solid #000;
+border-bottom: 1px solid #000;
+border-right: 1px solid #000;</string>
+        </property>
+        <property name="text">
+         <string>Todo se ha realizado correctamente en la aplicación</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
  </widget>
@@ -271,6 +424,8 @@ QPushButton:pressed {
   <tabstop>pinLabel</tabstop>
   <tabstop>detectButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="blinduinoResources.qrc"/>
+ </resources>
  <connections/>
 </ui>
