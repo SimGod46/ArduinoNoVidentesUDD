@@ -61,7 +61,7 @@ background-color:rgb(255, 255, 255);
            <string/>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #27273F;
+           <string notr="true">background-color: #349295;
 padding:5px;
 font: 26pt;
 color:white;
@@ -94,7 +94,7 @@ margin-top:20px;</string>
            <string/>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #55F19E;
+           <string notr="true">background-color: #006D70;
 font:24pt;
 color:white;
 border-bottom-left-radius: 10px;
@@ -137,7 +137,7 @@ margin-bottom:20px;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">font: 28pt;
-background-color: #27273F;
+background-color: #349295;
 color:white;
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
@@ -168,7 +168,7 @@ margin-top:20px;</string>
            <string/>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #55F19E;
+           <string notr="true">background-color: #006D70;
 font:28pt;
 color:white;
 border-bottom-left-radius: 10px;
@@ -202,7 +202,7 @@ margin-bottom:20px;</string>
          <string/>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: #27273F;
+         <string notr="true">background-color: #349295;
 font:28pt;
 border-radius: 10px;
 color:white;
@@ -238,7 +238,7 @@ margin-bottom: 15%;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
-background-color: #27273F;
+background-color: #349295;
 color:white;
 font: 28pt;
 border-radius: 10px;
@@ -365,7 +365,7 @@ color:white;
 border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 
-background: #55F19E;
+background: #006D70;
 margin-left:20px;
 margin-bottom:20px;
 margin-top:20px;</string>

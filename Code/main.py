@@ -12,6 +12,10 @@ class Controller:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
         internet, camara = True, True
+        self.camera_state = False
+        self.keepThread = True
+        self.startedThread = False
+        self.thread = threading.Thread(target=self.update_pin_label)
         if "-d" in args:
             self.debug_mode = True
         else:
@@ -32,8 +36,8 @@ class Controller:
         self.gui.module_detected(("ID", "NOMBRE", "", "PINES", "DESCRIPCIÓN"))
         self.pinsController = PinRecognizer()
         if self.pinsController.gamepad:
-            self.thread = threading.Thread(target=self.update_pin_label)
-            self.thread.start()
+            if not self.startedThread:
+                self.thread.start()
         else:
             self.gui.status_log("No será posible identificar los pines de la placa")
             return False
@@ -41,14 +45,19 @@ class Controller:
         try:
             self.base_datos = DataManager().query_all()
             self.error_datos = DataManager().query_status(404)
-        except Exception:
+        except Exception as e:
             self.gui.status_log("ERROR: No hay conexión a internet. No será posible identificar los módulos Arduinos")
+            print(e)
             return False
 
         try:
-            self.camera = CameraBlinduino()
-        except Exception:
+            if not self.camera_state:
+                self.camera = CameraBlinduino()
+                self.camera_state = True
+        except Exception as e:
+            self.camera_state = False
             self.gui.status_log("ERROR: Camara no encontrada. No será posible identificar los módulos Arduinos")
+            print(e)
             return False
 
         self.gui.detectButton.clicked.connect(self.take_photo)
@@ -60,16 +69,23 @@ class Controller:
         try:
             module = self.reconocedor_img.read(rgb_frame)
             self.gui.module_detected(self.base_datos[module])
-        except Exception:
+        except Exception as e:
             self.gui.module_detected(self.error_datos)
+            print(e)
 
     def update_pin_label(self):
+        self.startedThread = True
         available_pins = self.pinsController.nombre_pin.keys()
         while True:
             time.sleep(0.01)
+            if self.keepThread:
+                return "PROCESS ENDED"
             report = self.pinsController.gamepad.read(64)
             if report and report[1] in available_pins:
                 self.gui.change_pin(self.pinsController.nombre_pin[report[1]])
+
+    def detener_thread(self):
+        self.keepThread = False
 
 
 if __name__ == '__main__':
@@ -78,4 +94,5 @@ if __name__ == '__main__':
     window = controller.gui
     window.setWindowTitle('Blinduino')
     window.showMaximized()
+    app.aboutToQuit.connect(controller.detener_thread)
     app.exec()

@@ -6,7 +6,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[("AIvidentes.tflite","."),("blinduino.ui",".")],
+    datas=[("AIvidentes.tflite","."),("blinduino.ui","."),("refreshButtonClicked.png","."),("refreshButton.png",".")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
