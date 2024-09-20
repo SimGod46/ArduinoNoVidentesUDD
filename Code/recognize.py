@@ -28,7 +28,7 @@ class modules_recognizer:
         for indx in range(len(self.classes_names)):
             probabilidades[self.classes_names[indx]] = listed_clas[indx]
         print(probabilidades)
-        if self.classes_names[prediccion] == "background" or prediccion_prob < 0.5:
+        if self.classes_names[prediccion] == "background" or prediccion_prob < 0.8:
             raise Exception
         return self.classes_names[prediccion]
 

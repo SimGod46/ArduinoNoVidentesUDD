@@ -11,7 +11,6 @@ class Controller:
         args = sys.argv[1:]  # Ignorar el primer elemento, que es el nombre del archivo .py
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
-        internet, camara = True, True
         self.camera_state = False
         self.keepThread = True
         self.startedThread = False
@@ -65,27 +64,40 @@ class Controller:
         return True
 
     def take_photo(self):
-        rgb_frame = self.camera.capture(debug=self.debug_mode)
         try:
+            rgb_frame = self.camera.capture(debug=self.debug_mode)
             module = self.reconocedor_img.read(rgb_frame)
             self.gui.module_detected(self.base_datos[module])
         except Exception as e:
-            self.gui.module_detected(self.error_datos)
             print(e)
+            self.gui.module_detected(self.error_datos)
 
     def update_pin_label(self):
         self.startedThread = True
         available_pins = self.pinsController.nombre_pin.keys()
         while True:
             time.sleep(0.01)
-            if self.keepThread:
+            if not self.keepThread:
                 return "PROCESS ENDED"
-            report = self.pinsController.gamepad.read(64)
-            if report and report[1] in available_pins:
-                self.gui.change_pin(self.pinsController.nombre_pin[report[1]])
+            try:
+                report = self.pinsController.gamepad.read(64)
+                if report and report[1] in available_pins:
+                    self.gui.change_pin(self.pinsController.nombre_pin[report[1]])
+            except Exception as e:
+                print(e)
+                self.gui.status_log("No será posible identificar los pines de la placa")
+                self.camera_state = False
+                self.startedThread = False
+                self.gui.detectButton.clicked.disconnect(self.take_photo)
+                self.thread = threading.Thread(target=self.update_pin_label)
+                self.refresh_status()
+                return "DISCONNECTED"
+#                pass
+
 
     def detener_thread(self):
         self.keepThread = False
+        print("Se detuvo el thread...")
 
 
 if __name__ == '__main__':

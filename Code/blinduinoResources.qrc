@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="pixmap">
+    <file>refreshButtonClicked.png</file>
+    <file>refreshButton.png</file>
+  </qresource>
+</RCC>
