@@ -1,7 +1,5 @@
 from tensorflow.lite.python.interpreter import Interpreter
 import numpy as np
-import hid
-
 
 class modules_recognizer:
     def __init__(self):
@@ -31,19 +29,3 @@ class modules_recognizer:
         if self.classes_names[prediccion] == "background" or prediccion_prob < 0.8:
             raise Exception
         return self.classes_names[prediccion]
-
-
-class PinRecognizer:
-    def __init__(self):
-        self.nombre_pin ={1: "A1", 2: "A0", 4: "D3", 8: "D2", 16: "GND", 32: "GND", 64: "VCC", 128: "VCC"}
-        self.gamepad = False
-        print("_____ HID _____")
-        for device in hid.enumerate():
-            print(f"0x{device['vendor_id']:04x}:0x{device['product_id']:04x} {device['product_string']}")
-            if 'Arduino Leonardo' in device['product_string']:
-                dir1, dir2 = device['vendor_id'], device['product_id']
-                self.gamepad = hid.device()
-                self.gamepad.open(dir1, dir2)
-                self.gamepad.set_nonblocking(True)
-        if not self.gamepad:
-            print('"Joystick" no encontrado')

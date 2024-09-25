@@ -1,0 +1,44 @@
+[
+    {
+        "IdModule": "DHT-11",
+        "NameModule": "Sensor Temperatura y Humedad",
+        "StatusCode": "200",
+        "PinModule": "SIGNAL, VCC, GND",
+        "DescriptionModule": "Sensor digital que mide temperatura y humedad ambiental"
+    },
+    {
+        "IdModule": "HC-SR04",
+        "NameModule": "Sensor Distancia ultrasónico",
+        "StatusCode": "200",
+        "PinModule": "VCC, TRIG, ECHO, GND",
+        "DescriptionModule": "Sensor digital que mide distancia hasta un obstáculo, mediante ondas de ultrasonido."
+    },
+    {
+        "IdModule": "KY-012",
+        "NameModule": "Buzzer activo",
+        "StatusCode": "200",
+        "PinModule": "GND, VCC, SIGNAL",
+        "DescriptionModule": "Actuador digital que emite sonido al activarse"
+    },
+    {
+        "IdModule": "KY-023",
+        "NameModule": "Joystick",
+        "StatusCode": "200",
+        "PinModule": "GND, VCC, VRX, VRY, SW",
+        "DescriptionModule": "Input analógico similar al de un videojuego"
+    },
+    {
+        "IdModule": "ldr",
+        "NameModule": "Sensor de Luz",
+        "StatusCode": "200",
+        "PinModule": "DO, GND, VCC",
+        "DescriptionModule": "Sensor analógico que indica la cantidad de luz presente en el ambiente"
+    },
+    {
+        "IdModule": "NotFound",
+        "NameModule": "No detectado",
+        "StatusCode": "404",
+        "PinModule": "",
+        "DescriptionModule": "Try again."
+    }
+]

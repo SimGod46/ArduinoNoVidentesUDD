@@ -193,39 +193,7 @@ margin-bottom:20px;</string>
         </item>
        </layout>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="pinLabel">
-        <property name="focusPolicy">
-         <enum>Qt::TabFocus</enum>
-        </property>
-        <property name="accessibleName">
-         <string/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: #349295;
-font:28pt;
-border-radius: 10px;
-color:white;
-margin-left:20px;
-margin-right:20px;
-margin-top: 15%;
-margin-bottom: 15%;</string>
-        </property>
-        <property name="text">
-         <string>PIN</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
+      <item row="1" column="0" colspan="2">
        <widget class="QPushButton" name="detectButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -421,7 +389,6 @@ border-right: 1px solid #000;</string>
   <tabstop>idModule</tabstop>
   <tabstop>descriptionModule</tabstop>
   <tabstop>pinModule</tabstop>
-  <tabstop>pinLabel</tabstop>
   <tabstop>detectButton</tabstop>
  </tabstops>
  <resources>

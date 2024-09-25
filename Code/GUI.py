@@ -1,4 +1,3 @@
-
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtCore import Qt
 
@@ -19,8 +18,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.descriptionModule.setFocus(Qt.OtherFocusReason)
         elif event.key() == Qt.Key_4:
             self.pinModule.setFocus(Qt.OtherFocusReason)
-        elif event.key() == Qt.Key_5:
-            self.pinLabel.setFocus(Qt.OtherFocusReason)
         elif event.key() == Qt.Key_6:
             self.statusLog.setFocus(Qt.OtherFocusReason)
         elif event.key() == Qt.Key_7:
@@ -50,14 +47,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.descriptionModule.setText(msg[4])
 
     def status_log(self, msg):
-        self.statusLog.setText(msg)
-
-    def change_pin(self, msg):
-        self.pinLabel.setText(msg)         
+        self.statusLog.setText(msg)    
 
     def onResize(self, event):
         self.get_resolution()
-        self.pinLabel.setStyleSheet(self.resize_font(self.pinLabel, 32))
         self.nameModule.setStyleSheet(self.resize_font(self.nameModule, 28))
         self.idModule.setStyleSheet(self.resize_font(self.idModule, 28))
         self.descriptionModule.setStyleSheet(self.resize_font(self.descriptionModule, 18, pendiente=10))
