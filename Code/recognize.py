@@ -3,7 +3,21 @@ import numpy as np
 
 class modules_recognizer:
     def __init__(self):
-        self.classes_names = ['HC-SR04', 'DHT-11', 'ldr', 'KY-023', 'KY-012', "background"]
+        self.classes_names = ['HC-SR04',
+            'TCS34725',
+            'MQ-2',
+            'KY-006',
+            'DHT-11',
+            'KY-006',
+            'ldr',
+            'ldr',
+            'KY-023',
+            'KY-012',
+            'SG90',
+            'KY-038',
+            'background'
+        ]
+        #['HC-SR04', 'DHT-11', 'ldr', 'KY-023', 'KY-012', "background"]
         self.model = Interpreter("AIvidentes.tflite")  # load_model("AIvidentes.h5")
         self.model.allocate_tensors()
 

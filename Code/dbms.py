@@ -2,7 +2,7 @@ import requests, json
 
 class DataManager:
     def __init__(self):
-        self.api_url = "https://blinduino.cmasccp.cl/jsonData"
+        self.api_url = "https://blinduino.cl/jsonData"
 
     def parse_json(self, json_data):
         modules_dict = {}            
